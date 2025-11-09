@@ -1,11 +1,6 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 from abc import ABC, abstractmethod
 import redis
-import requests
 
 
 # Abstract class
@@ -63,30 +58,9 @@ r = redis.Redis(
 print(" Customer data Entered into Database")
 cust = Customer("adric@abc.com", "phys67", "81 Bay St")
 role = cust.get_role()
-
+print(role)
 r.hset(cust.user_name, mapping={
     "Password": cust.password,
     "Address": cust.address,
     "Role": cust.get_role()})
-
-
-# Spoonacular API Implementation
-
-url = "https://api.spoonacular.com/recipes/complexSearch"
-api_key = "fb1b260ee07f4c8f84751d8dac07a627"
-food = input("What food you want order: ")
-params = {
-    "apiKey": api_key,
-    "query": food
-}
-response = requests.get(url, params=params)
-if response.status_code == 200:
-    data = response.json()
-    for recipe in data.get("results", []):
-        print(f"{recipe['title']} (ID: {recipe['id']})")
-
-    else:
-        print(f"Error {response.status_code}: {response.text}")
-
-
 
