@@ -5,10 +5,7 @@
 
 from abc import ABC, abstractmethod
 import redis
-<<<<<<<<< Temporary merge branch 1
-=========
 import requests
->>>>>>>>> Temporary merge branch 2
 
 
 # Abstract class
@@ -23,10 +20,6 @@ class Person(ABC):
         pass
 
 
-def print_customer():
-    print("Customer")
-
-
 class Customer(Person):
 
     def __init__(self, user_name, password, address):
@@ -35,7 +28,6 @@ class Customer(Person):
 
     def get_role(self):
         return "Customer"
-<<<<<<<<< Temporary merge branch 1
 
 
 class Cook(Person):
@@ -72,7 +64,6 @@ r.hset(cust.user_name, mapping={
     "Password": cust.password,
     "Address": cust.address,
     "Role": cust.get_role()})
-=========
 
 
 class Cook(Person):
@@ -110,7 +101,6 @@ r.hset(cust.user_name, mapping={
     "Address": cust.address,
     "Role": cust.get_role()})
 
-
 # Spoonacular API Implementation
 
 url = "https://api.spoonacular.com/recipes/complexSearch"
@@ -128,7 +118,3 @@ if response.status_code == 200:
 
     else:
         print(f"Error {response.status_code}: {response.text}")
-
-
->>>>>>>>> Temporary merge branch 2
-
