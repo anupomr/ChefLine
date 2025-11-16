@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 import redis
-import requests
-from config import api_key
+from custom_order import CustomOrder
 
 
 # Abstract class
@@ -44,6 +43,8 @@ class Admin(Person):
 
     def get_role(self):
         return "Admin"
+
+
 '''
 
 r = redis.Redis(
@@ -71,20 +72,6 @@ r.hset(cust.user_name, mapping={
     "Role": cust.get_role()})
 
 '''
-# Spoonacular API Implementation
 
-url = "https://api.spoonacular.com/recipes/complexSearch"
-food = input("What food you want order: ")
-params = {
-    "apiKey": api_key,
-    "query": food,
-    "number": 5
-}
-response = requests.get(url, params=params)
-if response.status_code == 200:
-    data = response.json()
-    for recipe in data.get("results", []):
-        print(f"{recipe['title']} (ID: {recipe['id']})")
-
-else:
-    print(f"Error {response.status_code}: {response.text}")
+order = CustomOrder.customer_choice()
+print(f"\n🍴 Final choice: ")
