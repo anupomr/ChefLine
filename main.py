@@ -74,4 +74,4 @@ r.hset(cust.user_name, mapping={
 '''
 
 order = CustomOrder.customer_choice()
-print(f"\n🍴 Final choice: ")
+print(f"\n✅ Final choice: {order}")

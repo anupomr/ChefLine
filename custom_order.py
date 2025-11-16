@@ -22,6 +22,13 @@ class CustomOrder:
                 print("You can order form bellow options :")
                 for i, recipe in enumerate(results, start=1):
                     print(f"{i}.{recipe['title']} (ID: {recipe['id']})")
+                try:
+                    selection = int(input("\nEnter a number that you like : "))
+                    chosen_title = results[selection - 1]['title']
+                    return chosen_title
+                except ValueError:
+                    print("Enter a valid Number")
+                    return None
 
         else:
             print(f"Error {response.status_code}: {response.text}")
