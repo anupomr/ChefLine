@@ -17,8 +17,11 @@ class CustomOrder:
         response = requests.get(url, params=params)
         if response.status_code == 200:
             data = response.json()
-            for recipe in data.get("results", []):
-                print(f"{recipe['title']} (ID: {recipe['id']})")
+            results = data.get("results", [])
+            if results:
+                print("You can order form bellow options :")
+                for i, recipe in enumerate(results, start=1):
+                    print(f"{i}.{recipe['title']} (ID: {recipe['id']})")
 
         else:
             print(f"Error {response.status_code}: {response.text}")
