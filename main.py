@@ -1,77 +1,26 @@
-from abc import ABC, abstractmethod
-import redis
+
 from custom_order import CustomOrder
+from repository import RedisUserRepository
+from user import PersonFactory
 
+if __name__ == "__main__":
+    print("\n🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️")
+    print("\n🍴 ChefLine 🍴  Customer #1 Choice ❤️❤️")
+    print("\n🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️🍽️")
 
-# Abstract class
+    print("\nEnter Signup ")
+    role = input("\nEnter your role : ")
+    user_name = input("\nEnter user_name : ")
+    password = input("\nEnter password : ")
+    address = input("\nEnter your Address : ")
+    factory = PersonFactory()
+    user = factory.create_person(role, user_name, password, address)
+    repo = RedisUserRepository()
+    repo.save(user)
+    print(user.user_name)
 
-class Person(ABC):
-    def __init__(self, user_name, password):
-        self.user_name = user_name
-        self.password = password
-
-    @abstractmethod
-    def get_role(self):
-        pass
-
-
-class Customer(Person):
-
-    def __init__(self, user_name, password, address):
-        super().__init__(user_name, password)
-        self.address = address
-
-    def get_role(self):
-        return "Customer"
-
-
-class Cook(Person):
-
-    def __init__(self, user_name, password, address):
-        super().__init__(user_name, password)
-        self.address = address
-
-    def get_role(self):
-        return "Cook"
-
-
-class Admin(Person):
-
-    def __init__(self, user_name, password, address):
-        super().__init__(user_name, password)
-        self.address = address
-
-    def get_role(self):
-        return "Admin"
-
-
-'''
-
-r = redis.Redis(
-    host='redis-14057.c52.us-east-1-4.ec2.redns.redis-cloud.com',
-    port=14057,
-    password='87g6Iqv4U73wSpFVlaAak3acu92uaLp3',
-    decode_responses=True
-)
-print(" Customer data Entered into Database")
-cust = Customer("adric@abc.com", "phys67", "81 Bay St")
-role = cust.get_role()
-print(role)
-r.hset(cust.user_name, mapping={
-    "Password": cust.password,
-    "Address": cust.address,
-    "Role": cust.get_role()})
-
-print(" Customer data Entered into Database")
-cust = Customer("adric@abc.com", "phys67", "81 Bay St")
-role = cust.get_role()
-
-r.hset(cust.user_name, mapping={
-    "Password": cust.password,
-    "Address": cust.address,
-    "Role": cust.get_role()})
-
-'''
-
-order = CustomOrder.customer_choice()
-print(f"\n✅ Final choice: {order}")
+    '''
+    
+    order = CustomOrder.customer_choice()
+    print(f"\n✅ Final choice: {order}")
+    '''
