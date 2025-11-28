@@ -31,5 +31,16 @@ class OrderSystem(Subject):
         for obs in self._observers:
             obs.update(message)
 
+    def create_msg(self, customer_name, item):
+        message = f"New order from {customer_name} : {item}"
+        self.notify(message)
+
+
+class CookObserver(Observer):
+    def __init__(self, cook):
+        self.cook = cook
+
+    def update(self, order_message):
+        print(f"[Cook {self.cook.user_name}] received order notification: {order_message}")
 
 
