@@ -1,3 +1,4 @@
+from app import validate_user, app
 from custom_order import CustomOrder
 from repository import RedisUserRepository
 from user import PersonFactory
@@ -11,13 +12,17 @@ if __name__ == "__main__":
 
     print("\n1. Login ")
     print("\n2. Signup ")
-    print("\n3. Delete User ")
+    print("\n3. Exit ")
     selection = int(input("\nEnter the number : "))
 
     if selection == 1:
         print("\nEnter Login ")
         user_name = input("\nEnter user_name : ")
         password = input("\nEnter password : ")
+        if validate_user(user_name, password):
+            app(user_name)
+        else:
+            print("Please check your username & Password")
 
     elif selection == 2:
         print("\nEnter Signup ")
@@ -30,9 +35,7 @@ if __name__ == "__main__":
         print(user.user_name)
 
     elif selection == 3:
-        user_name = input("\nEnter user_name : ")
-        password = repo.get_role(user_name)
-        print(password)
+        exit(0)
 
     else:
         print("\nPlease Enter 1, 2 or 3 ")
