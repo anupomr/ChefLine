@@ -43,3 +43,31 @@ class RedisUserRepository(UserRepository):
     def get_role(self, user_name):
         result = self.redis_client.hget(user_name, "Role")
         return result
+
+    def save_menu(self, cook_name, menu_item):
+        self.redis_client.rpush(f"COOK_MENU:{cook_name}", menu_item)
+
+    def get_menu(self, cook_name):
+        return self.redis_client.lrange(f"COOK_MENU:{cook_name}", 0, -1)
+
+    def get_all_menus(self):
+        keys = self.redis_client.keys("COOK_MENU:*")
+        result = []
+        for key in keys:
+            result.extend(self.redis_client.lrange(key, 0, -1))
+        return result
+
+    def save_order(self, order):
+        self.redis_client.rpush("ORDERS", order)
+
+    def get_orders(self):
+        return self.redis_client.lrange("ORDERS", 0, -1)
+
+    def save_review(self, review):
+        self.redis_client.rpush("CUSTOMER_REVIEWS", review)
+
+    def get_reviews(self):
+        return self.redis_client.lrange("CUSTOMER_REVIEWS", 0, -1)
+
+
+

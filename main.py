@@ -1,5 +1,4 @@
 from app import validate_user, app
-from custom_order import CustomOrder
 from repository import RedisUserRepository
 from user import PersonFactory
 
@@ -40,7 +39,4 @@ if __name__ == "__main__":
     else:
         print("\nPlease Enter 1, 2 or 3 ")
 
-    '''
-        order = CustomOrder.customer_choice()
-    print(f"\n✅ Final choice: {order}")
-    '''
+
