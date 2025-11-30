@@ -1,6 +1,7 @@
 from repository import RedisUserRepository
 
 repo = RedisUserRepository()
+COOK_MENU = []
 
 
 def validation(user_name, password):
@@ -9,13 +10,12 @@ def validation(user_name, password):
     passcode = repo.get_password(user_name)
     print(passcode)
     if role == "Customer" and password == passcode:
-        print("Success !! ")
+        return True
     else:
-        print("\nPlease Enter valid info ")
+        return False
 
 
-class Application:
-    pass
-
-
-validation("ric@abc.com", "phys67")
+def create_menu():
+    item_name = input("\n Enter a new menu Item : ")
+    COOK_MENU.append({"name": item_name, "likes": 0})
+    print(f"Menu Item {item_name} published ! ")
